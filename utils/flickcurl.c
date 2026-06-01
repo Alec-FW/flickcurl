@@ -131,7 +131,7 @@ static struct option long_options[] =
   {"auth",    1, 0, 'a'},
   {"delay",   1, 0, 'd'},
   {"help",    0, 0, 'h'},
-  {"output",  0, 0, 'o'},
+  {"output",  1, 0, 'o'},
   {"quiet",   0, 0, 'q'},
   {"version", 0, 0, 'v'},
   {"verbose", 0, 0, 'V'},
@@ -141,6 +141,22 @@ static struct option long_options[] =
 
 
 static const char *title_format_string = "Flickr API utility %s\n";
+
+
+static int
+flickcurl_argv_has_flag(int argc, char* argv[], const char* short_opt,
+                          const char* long_opt)
+{
+  int i;
+
+  for(i = 1; i < argc; i++) {
+    if(!strcmp(argv[i], short_opt))
+      return 1;
+    if(long_opt && !strcmp(argv[i], long_opt))
+      return 1;
+  }
+  return 0;
+}
 
 
 static void
@@ -228,6 +244,18 @@ main(int argc, char *argv[])
 
   program = flickcurl_cmdline_basename(argv[0]);
 
+  if(flickcurl_argv_has_flag(argc, argv, "-v", "--version")) {
+    fputs(flickcurl_version_string, stdout);
+    fputc('\n', stdout);
+    flickcurl_cmdline_finish();
+    flickcurl_finish();
+    return 0;
+  }
+
+  help = flickcurl_argv_has_flag(argc, argv, "-h", "--help");
+  if(help)
+    read_auth = 0;
+
   /* Initialise the Flickcurl library */
   fc = flickcurl_new();
   if(!fc) {
@@ -245,7 +273,7 @@ main(int argc, char *argv[])
         rc = 1;
         goto tidy;
       }
-    } else {
+    } else if(!help) {
       /* Check if the user has requested to see the help message */
       for (i = 0; i < argc; ++i) {
 	if (!strcmp(argv[i], "-h") || !strcmp(argv[i], "--help")) {
@@ -339,15 +367,18 @@ main(int argc, char *argv[])
         break;
 
       case 'o':
-        if(optarg) {
-          output_filename = optarg;
-          output_fh = fopen(output_filename, "w");
-          if(!output_fh) {
-            fprintf(stderr, "%s: Failed to write to output file %s: %s\n",
-                    program, output_filename, strerror(errno));
-            rc = 1;
-            goto tidy;
-          }
+        if(!optarg) {
+          fprintf(stderr, "%s: -o requires a filename argument\n", program);
+          rc = 1;
+          goto tidy;
+        }
+        output_filename = optarg;
+        output_fh = fopen(output_filename, "w");
+        if(!output_fh) {
+          fprintf(stderr, "%s: Failed to write to output file %s: %s\n",
+                  program, output_filename, strerror(errno));
+          rc = 1;
+          goto tidy;
         }
         break;
 
@@ -358,9 +389,8 @@ main(int argc, char *argv[])
       case 'v':
         fputs(flickcurl_version_string, stdout);
         fputc('\n', stdout);
-
-        flickcurl_cmdline_finish();
-        exit(0);
+        rc = 0;
+        goto tidy;
 
       case 'V':
         verbose = 2;
@@ -377,8 +407,11 @@ main(int argc, char *argv[])
     goto usage;
   }
 
-  if(usage || help)
+  if(usage || help) {
+    if(help)
+      rc = 0;
     goto usage;
+  }
 
 
   if(request_delay >= 0)
