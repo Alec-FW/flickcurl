@@ -33,8 +33,7 @@ jobs:
 
       - name: Build and test
         run: |
-          ./autogen.sh --disable-gtk-doc
-          ./configure --disable-gtk-doc
+          ./autogen.sh --enable-silent-rules --disable-static --disable-gtk-doc
           make -j"$(nproc 2>/dev/null || sysctl -n hw.ncpu)"
           make check
 
@@ -50,8 +49,7 @@ jobs:
 
       - name: Build with maintainer warnings
         run: |
-          ./autogen.sh --enable-maintainer-mode --disable-gtk-doc
-          ./configure --enable-maintainer-mode --disable-gtk-doc
+          ./autogen.sh --enable-maintainer-mode --enable-silent-rules --disable-static --disable-gtk-doc
           set -o pipefail
           make -j"$(sysctl -n hw.ncpu)" 2>&1 | tee build.log
           if grep -E ': warning:' build.log; then

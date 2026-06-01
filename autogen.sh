@@ -55,8 +55,16 @@ GITMODULES='.gitmodules'
 programs="automake aclocal autoconf autoheader libtoolize"
 confs=`find . -name configure.ac -print | grep -v /releases/`
 
+disable_gtk_doc=0
+for arg in "$@"; do
+  case $arg in
+    --disable-gtk-doc) disable_gtk_doc=1 ;;
+    --enable-gtk-doc) disable_gtk_doc=0 ;;
+  esac
+done
+
 gtkdoc_args=
-if grep "^GTK_DOC_CHECK" $confs >/dev/null; then
+if test $disable_gtk_doc = 0 && grep "^GTK_DOC_CHECK" $confs >/dev/null; then
   programs="$programs gtkdocize"
   gtkdoc_args="--enable-gtk-doc"
 fi
@@ -354,7 +362,7 @@ do
 	  break
       fi
 
-      if grep "^GTK_DOC_CHECK" configure.ac >/dev/null; then
+      if test $disable_gtk_doc = 0 && grep "^GTK_DOC_CHECK" configure.ac >/dev/null; then
         # gtkdocize junk
         $DRYRUN rm -rf gtk-doc.make
         echo "$program: Running $gtkdocize $gtkdocize_args"
