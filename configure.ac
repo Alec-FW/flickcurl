@@ -97,7 +97,7 @@ raptor_min_version=2.0.0
 libcurl_min_version=7.10.0
 
 # Checks for header files.
-AC_CHECK_HEADERS([errno.h getopt.h setjmp.h stddef.h stdlib.h strings.h string.h stdint.h sys/stat.h sys/time.h time.h unistd.h])
+AC_CHECK_HEADERS([errno.h fcntl.h getopt.h setjmp.h stddef.h stdlib.h strings.h string.h stdint.h sys/stat.h sys/time.h time.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
@@ -113,7 +113,7 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([getopt getopt_long gettimeofday memset strdup usleep vsnprintf])
+AC_CHECK_FUNCS([getopt getopt_long gettimeofday memset strdup usleep vsnprintf getentropy arc4random_buf])
 AC_SEARCH_LIBS(nanosleep, rt posix4, 
                AC_DEFINE(HAVE_NANOSLEEP, 1, [Define to 1 if you have the 'nanosleep' function.]),
                AC_MSG_WARN(nanosleep was not found))
@@ -235,12 +235,10 @@ fi
 LIBS="$LIBS `$XML_CONFIG --libs`"
 CFLAGS="`$XML_CONFIG --cflags` $CFLAGS"
 
-if test $libxml_source = "pkg-config"; then
-  if test "X$PKG_CONFIG_REQUIRES" != X; then
-    PKG_CONFIG_REQUIRES="$PKG_CONFIG_REQUIRES,"
-  fi
-  PKG_CONFIG_REQUIRES="$PKG_CONFIG_REQUIRES libxml-2.0 >= $LIBXML_MIN_VERSION"
+if test "X$PKG_CONFIG_REQUIRES" != X; then
+  PKG_CONFIG_REQUIRES="$PKG_CONFIG_REQUIRES,"
 fi
+PKG_CONFIG_REQUIRES="$PKG_CONFIG_REQUIRES libxml-2.0 >= $LIBXML_MIN_VERSION"
 
 dnl curl - required
 LIBCURL_MIN_VERSION=$libcurl_min_version
