@@ -27,11 +27,101 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+#ifdef HAVE_FCNTL_H
+#include <fcntl.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#include <sys/stat.h>
+#endif
+#ifdef HAVE_GETENTROPY
+#include <sys/random.h>
+#endif
+#if TIME_WITH_SYS_TIME
+# include <sys/time.h>
+# include <time.h>
+#else
+# if HAVE_SYS_TIME_H
+#  include <sys/time.h>
+# else
+#  include <time.h>
+# endif
+#endif
+
 #include <flickcurl.h>
 #include <flickcurl_internal.h>
 
 /* Only used in the test in this file so needs to be in the library */
 int flickcurl_oauth_build_key(flickcurl_oauth_data* od);
+
+
+static int
+flickcurl_oauth_should_sign(flickcurl* fc, flickcurl_oauth_data* od)
+{
+  if(fc->sign)
+    return 1;
+  if(od->client_secret || od->token_secret || od->request_token_secret)
+    return 1;
+  return 0;
+}
+
+
+static int
+flickcurl_oauth_random_bytes(unsigned char* buf, size_t len)
+{
+#if defined(HAVE_ARC4RANDOM_BUF) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+  arc4random_buf(buf, len);
+  return 0;
+#elif defined(HAVE_GETENTROPY)
+  if(getentropy(buf, len) == 0)
+    return 0;
+  return 1;
+#else
+  int fd;
+  size_t got = 0;
+
+  fd = open("/dev/urandom", O_RDONLY);
+  if(fd < 0)
+    return 1;
+  while(got < len) {
+    ssize_t n = read(fd, buf + got, len - got);
+    if(n <= 0) {
+      close(fd);
+      return 1;
+    }
+    got += (size_t)n;
+  }
+  close(fd);
+  return 0;
+#endif
+}
+
+
+static char*
+flickcurl_oauth_generate_nonce(flickcurl* fc)
+{
+  unsigned char bytes[16];
+  char* nonce;
+  int i;
+
+  if(!flickcurl_oauth_random_bytes(bytes, sizeof(bytes))) {
+    nonce = (char*)malloc(33);
+    if(!nonce)
+      return NULL;
+    for(i = 0; i < 16; i++)
+      sprintf(nonce + (2 * i), "%02x", bytes[i]);
+    nonce[32] = '\0';
+    return nonce;
+  }
+
+  nonce = (char*)malloc(20);
+  if(!nonce)
+    return NULL;
+  sprintf(nonce, "%ld", mtwist_u32rand(fc->mt));
+  return nonce;
+}
 
 
 #ifndef STANDALONE
@@ -299,6 +389,8 @@ flickcurl_oauth_prepare_common(flickcurl *fc,
   int is_oauth_method = 0;
   char *p;
 
+  (void)need_auth;
+
   if(!service_uri)
     return 1;
   
@@ -369,12 +461,11 @@ flickcurl_oauth_prepare_common(flickcurl *fc,
 
   nonce = (char*)od->nonce;
   if(!nonce) {
-    nonce = (char*)malloc(20);
+    nonce = flickcurl_oauth_generate_nonce(fc);
     if(!nonce)
       goto tidy;
 
     free_nonce = 1;
-    sprintf(nonce, "%ld", mtwist_u32rand(fc->mt));
   }
   flickcurl_add_param(fc, "oauth_nonce", nonce);
 
@@ -419,7 +510,7 @@ flickcurl_oauth_prepare_common(flickcurl *fc,
   if(!values_len)
     goto tidy;
 
-  if((need_auth && (od->client_secret || od->token_secret)) || fc->sign)
+  if(flickcurl_oauth_should_sign(fc, od))
     flickcurl_sort_args(fc);
 
 
@@ -472,8 +563,7 @@ flickcurl_oauth_prepare_common(flickcurl *fc,
   }
 
 
-  if(((need_auth && (od->client_secret || od->token_secret))) ||
-     fc->sign) {
+  if(flickcurl_oauth_should_sign(fc, od)) {
     char *buf = NULL;
     size_t buf_len = 0;
     char *param_buf = NULL;
@@ -1240,7 +1330,7 @@ flickcurl_set_oauth_request_token_secret(flickcurl *fc, const char* secret)
   if(fc->od.request_token_secret) {
     free(fc->od.request_token_secret);
     fc->od.request_token_secret = NULL;
-    fc->od.request_token_secret = 0;
+    fc->od.request_token_secret_len = 0;
   }
   if(secret) {
     size_t len = strlen(secret);
