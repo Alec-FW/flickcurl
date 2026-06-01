@@ -160,8 +160,10 @@ flickcurl_write_callback(void *ptr, size_t size, size_t nmemb,
       if(!xc)
         rc = 1;
       else {
-        xc->replaceEntities = 1;
-        xc->loadsubset = 1;
+        /* Untrusted Flickr API XML: no network, DTD subset, or entity expansion */
+        xc->replaceEntities = 0;
+        xc->loadsubset = 0;
+        xmlCtxtUseOptions(xc, XML_PARSE_NONET);
       }
       fc->xc = xc;
     } else
