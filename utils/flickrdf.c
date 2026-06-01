@@ -72,6 +72,7 @@ const char* program;
 static void
 my_message_handler(void *user_data, const char *message)
 {
+  (void)user_data;
   fprintf(stderr, "%s: ERROR: %s\n", program, message);
 }
 
@@ -116,6 +117,9 @@ ser_emit_namespace(void* user_data,
 {
   raptor_serializer* serializer = (raptor_serializer*)user_data;
   raptor_uri *ns_uri = NULL;
+
+  (void)prefix_len;
+  (void)uri_len;
 
   ns_uri = raptor_new_uri(rworld, (const unsigned char*)uri);
   raptor_serializer_set_namespace(serializer, ns_uri, 

@@ -109,6 +109,8 @@ flickcurl_build_activity_event(flickcurl* fc, xmlNodePtr node)
   xmlAttr* attr;
   xmlNodePtr chnode;
 
+  (void)fc;
+
   ae = (flickcurl_activity_event*)calloc(1, sizeof(flickcurl_activity_event));
   if(!ae)
     return NULL;

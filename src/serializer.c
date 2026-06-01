@@ -89,30 +89,33 @@ struct flickrdf_nspace_s
 };
 typedef struct flickrdf_nspace_s flickrdf_nspace;
 
+#define FLICKRDF_NSPACE(prefix, uri) \
+  { (char*)(prefix), (char*)(uri), 0, 0, 0, NULL }
+
 flickrdf_nspace namespace_table[] = {
-  { (char*)"a",        (char*)"http://www.w3.org/2000/10/annotation-ns" },
-  { (char*)"acl",      (char*)"http://www.w3.org/2001/02/acls#" },
-  { (char*)"blue",     (char*)BLUE_NS, },
-  { (char*)"cell",     (char*)CELL_NS, },
-  { (char*)"dc",       (char*)DC_NS },
-  { (char*)"dcterms",  (char*)DCTERMS_NS },
-  { (char*)"dopplr",   (char*)DOPPLR_NS },
-  { (char*)"exif",     (char*)"http://nwalsh.com/rdf/exif#" },
-  { (char*)"exifi",    (char*)"http://nwalsh.com/rdf/exif-intrinsic#" },
-  { (char*)"flickr",   (char*)FLICKR_NS },
-  { (char*)"filtr",    (char*)FILTR_NS, },
-  { (char*)"foaf",     (char*)FOAF_NS },
-  { (char*)"geo",      (char*)GEO_NS, },
-  { (char*)"geonames", (char*)GEONAMES_NS, },
-  { (char*)"i",        (char*)"http://www.w3.org/2004/02/image-regions#" },
-  { (char*)"ph",       (char*)PH_NS },
-  { (char*)"places",   (char*)PLACES_NS, },
-  { (char*)"rdf",      (char*)RDF_NS },
-  { (char*)"rdfs",     (char*)RDFS_NS },
-  { (char*)"skos",     (char*)"http://www.w3.org/2004/02/skos/core" },
-  { (char*)"upcoming", (char*)UPCOMING_NS },
-  { (char*)"xsd",      (char*)XSD_NS, },
-  { NULL, NULL }
+  FLICKRDF_NSPACE("a",        "http://www.w3.org/2000/10/annotation-ns"),
+  FLICKRDF_NSPACE("acl",      "http://www.w3.org/2001/02/acls#"),
+  FLICKRDF_NSPACE("blue",     BLUE_NS),
+  FLICKRDF_NSPACE("cell",     CELL_NS),
+  FLICKRDF_NSPACE("dc",       DC_NS),
+  FLICKRDF_NSPACE("dcterms",  DCTERMS_NS),
+  FLICKRDF_NSPACE("dopplr",   DOPPLR_NS),
+  FLICKRDF_NSPACE("exif",     "http://nwalsh.com/rdf/exif#"),
+  FLICKRDF_NSPACE("exifi",    "http://nwalsh.com/rdf/exif-intrinsic#"),
+  FLICKRDF_NSPACE("flickr",   FLICKR_NS),
+  FLICKRDF_NSPACE("filtr",    FILTR_NS),
+  FLICKRDF_NSPACE("foaf",     FOAF_NS),
+  FLICKRDF_NSPACE("geo",      GEO_NS),
+  FLICKRDF_NSPACE("geonames", GEONAMES_NS),
+  FLICKRDF_NSPACE("i",        "http://www.w3.org/2004/02/image-regions#"),
+  FLICKRDF_NSPACE("ph",       PH_NS),
+  FLICKRDF_NSPACE("places",   PLACES_NS),
+  FLICKRDF_NSPACE("rdf",      RDF_NS),
+  FLICKRDF_NSPACE("rdfs",     RDFS_NS),
+  FLICKRDF_NSPACE("skos",     "http://www.w3.org/2004/02/skos/core"),
+  FLICKRDF_NSPACE("upcoming", UPCOMING_NS),
+  FLICKRDF_NSPACE("xsd",      XSD_NS),
+  { NULL, NULL, 0, 0, 0, NULL }
 };
 
 #define FIELD_FLAGS_PERSON   1
@@ -128,21 +131,21 @@ static struct {
 } field_table[] = {
   /* dc:available -- date that the resource will become/did become available.*/
   /* dc:dateSubmitted - Date of submission of resource (e.g. thesis, articles)*/
-  { PHOTO_FIELD_dateuploaded,       DCTERMS_NS, "dateSubmitted" },
-  { PHOTO_FIELD_license,            DCTERMS_NS, "rights" },
+  { PHOTO_FIELD_dateuploaded,       DCTERMS_NS, "dateSubmitted", 0 },
+  { PHOTO_FIELD_license,            DCTERMS_NS, "rights", 0 },
   /* dc:modified - date on which the resource was changed. */
-  { PHOTO_FIELD_dates_lastupdate,   DCTERMS_NS, "modified" },
+  { PHOTO_FIELD_dates_lastupdate,   DCTERMS_NS, "modified", 0 },
   /* dc:issued - date of formal issuance (e.g. publication of the resource */
-  { PHOTO_FIELD_dates_posted,       DCTERMS_NS, "issued" },
+  { PHOTO_FIELD_dates_posted,       DCTERMS_NS, "issued", 0 },
   /* dc:created - date of creation of the resource */
   { PHOTO_FIELD_dates_taken,        DCTERMS_NS, "created", FIELD_FLAGS_SQL_DATE },
-  { PHOTO_FIELD_description,        DCTERMS_NS, "description" },
+  { PHOTO_FIELD_description,        DCTERMS_NS, "description", 0 },
   { PHOTO_FIELD_location_latitude,  GEO_NS,     "lat",  FIELD_FLAGS_FLOAT },
   { PHOTO_FIELD_location_longitude, GEO_NS,     "long", FIELD_FLAGS_FLOAT },
   { PHOTO_FIELD_owner_realname,     FOAF_NS,    "name", FIELD_FLAGS_PERSON },
   { PHOTO_FIELD_owner_username,     FOAF_NS,    "nick", FIELD_FLAGS_PERSON },
-  { PHOTO_FIELD_title,              DCTERMS_NS, "title" },
-  { PHOTO_FIELD_none, NULL, NULL }
+  { PHOTO_FIELD_title,              DCTERMS_NS, "title", 0 },
+  { PHOTO_FIELD_none, NULL, NULL, 0 }
 };
 
 

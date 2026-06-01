@@ -67,6 +67,8 @@ flickcurl_build_notes(flickcurl* fc, flickcurl_photo* photo,
   int i;
   xmlXPathObjectPtr xpathObj = NULL;
   xmlNodeSetPtr nodes;
+
+  (void)photo;
   
   /* Now do notes */
   xpathObj = xmlXPathEvalExpression(xpathExpr, xpathCtx);

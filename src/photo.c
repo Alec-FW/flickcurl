@@ -1375,6 +1375,8 @@ flickcurl_photos_list*
 flickcurl_new_photos_list(flickcurl* fc)
 {
   flickcurl_photos_list* photos_list;
+
+  (void)fc;
   
   photos_list = (flickcurl_photos_list*)calloc(1, sizeof(*photos_list));
   if(!photos_list)

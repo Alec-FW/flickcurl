@@ -99,6 +99,7 @@ const char *output_filename = "<stdout>";
 static void
 my_message_handler(void *user_data, const char *message)
 {
+  (void)user_data;
   fprintf(stderr, "%s: ERROR: %s\n", program, message);
 }
 

@@ -56,6 +56,7 @@
 int
 flickcurl_stats_getCSVFiles(flickcurl* fc)
 {
+  (void)fc;
   return 1;
 }
 

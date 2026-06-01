@@ -45,14 +45,14 @@
 extern const char* program;
 
 static int
-command_test_echo(flickcurl* fc, int argc, char *argv[])
+command_test_echo(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_test_echo(fc, argv[1], argv[2]);
 }
 
 
 static int
-command_test_login(flickcurl* fc, int argc, char *argv[])
+command_test_login(flickcurl* fc, int, char *[])
 {
   char* username;
 
@@ -67,14 +67,14 @@ command_test_login(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_test_null(flickcurl* fc, int argc, char *argv[])
+command_test_null(flickcurl* fc, int, char *[])
 {
   return flickcurl_test_null(fc);
 }
 
 
 static int
-command_people_findByEmail(flickcurl* fc, int argc, char *argv[])
+command_people_findByEmail(flickcurl* fc, int, char *argv[])
 {
   char* nsid = NULL;
   char* email = argv[1];
@@ -90,7 +90,7 @@ command_people_findByEmail(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_people_findByUsername(flickcurl* fc, int argc, char *argv[])
+command_people_findByUsername(flickcurl* fc, int, char *argv[])
 {
   char* nsid = NULL;
   char* user_name = argv[1];
@@ -129,7 +129,7 @@ command_print_person(flickcurl_person* person)
 
 
 static int
-command_people_getInfo(flickcurl* fc, int argc, char *argv[])
+command_people_getInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_person* person;
 
@@ -345,7 +345,7 @@ command_print_photo(flickcurl_photo* photo)
 
 
 static int
-command_photos_getInfo(flickcurl* fc, int argc, char *argv[])
+command_photos_getInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_photo* photo;
   const char *secret = NULL;
@@ -366,7 +366,7 @@ command_photos_getInfo(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_licenses_getInfo(flickcurl* fc, int argc, char *argv[])
+command_photos_licenses_getInfo(flickcurl* fc, int, char *[])
 {
   flickcurl_license** licenses;
   int i;
@@ -391,7 +391,7 @@ command_photos_licenses_getInfo(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_urls_lookupUser(flickcurl* fc, int argc, char *argv[])
+command_urls_lookupUser(flickcurl* fc, int, char *argv[])
 {
   char* nsid = NULL;
   char* url = argv[1];
@@ -428,7 +428,7 @@ command_contexts_print(FILE* fh, flickcurl_context** contexts)
 
 
 static int
-command_groups_pools_getContext(flickcurl* fc, int argc, char *argv[])
+command_groups_pools_getContext(flickcurl* fc, int, char *argv[])
 {
   flickcurl_context** contexts;
 
@@ -446,7 +446,7 @@ command_groups_pools_getContext(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_getAllContexts(flickcurl* fc, int argc, char *argv[])
+command_photos_getAllContexts(flickcurl* fc, int, char *argv[])
 {
   flickcurl_context** contexts;
 
@@ -463,7 +463,7 @@ command_photos_getAllContexts(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_getContext(flickcurl* fc, int argc, char *argv[])
+command_photos_getContext(flickcurl* fc, int, char *argv[])
 {
   flickcurl_context** contexts;
 
@@ -480,7 +480,7 @@ command_photos_getContext(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_getCounts(flickcurl* fc, int argc, char *argv[])
+command_photos_getCounts(flickcurl* fc, int, char *argv[])
 {
   char** dates_array = NULL;
   char** taken_dates_array = NULL;
@@ -513,7 +513,7 @@ command_photos_getCounts(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_getContext(flickcurl* fc, int argc, char *argv[])
+command_photosets_getContext(flickcurl* fc, int, char *argv[])
 {
   flickcurl_context** contexts;
 
@@ -531,7 +531,7 @@ command_photosets_getContext(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_auth_getFrob(flickcurl* fc, int argc, char *argv[])
+command_auth_getFrob(flickcurl* fc, int, char *[])
 {
   char* frob;
 
@@ -546,7 +546,7 @@ command_auth_getFrob(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_auth_checkToken(flickcurl* fc, int argc, char *argv[])
+command_auth_checkToken(flickcurl* fc, int, char *argv[])
 {
   char* perms;
 
@@ -562,7 +562,7 @@ command_auth_checkToken(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_auth_getToken(flickcurl* fc, int argc, char *argv[])
+command_auth_getToken(flickcurl* fc, int, char *argv[])
 {
   char* perms;
 
@@ -577,7 +577,7 @@ command_auth_getToken(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_auth_getFullToken(flickcurl* fc, int argc, char *argv[])
+command_auth_getFullToken(flickcurl* fc, int, char *argv[])
 {
   char* perms;
 
@@ -592,7 +592,7 @@ command_auth_getFullToken(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getListPhoto(flickcurl* fc, int argc, char *argv[])
+command_tags_getListPhoto(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *photo_id = argv[1];
@@ -609,7 +609,7 @@ command_tags_getListPhoto(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getListUser(flickcurl* fc, int argc, char *argv[])
+command_tags_getListUser(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *user_id = argv[1];
@@ -625,7 +625,7 @@ command_tags_getListUser(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getListUserPopular(flickcurl* fc, int argc, char *argv[])
+command_tags_getListUserPopular(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *user_id = NULL;
@@ -648,7 +648,7 @@ command_tags_getListUserPopular(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getListUserRaw(flickcurl* fc, int argc, char *argv[])
+command_tags_getListUserRaw(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *tag = argv[1];
@@ -664,7 +664,7 @@ command_tags_getListUserRaw(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getRelated(flickcurl* fc, int argc, char *argv[])
+command_tags_getRelated(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *tag = argv[1];
@@ -680,7 +680,7 @@ command_tags_getRelated(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_urls_getGroup(flickcurl* fc, int argc, char *argv[])
+command_urls_getGroup(flickcurl* fc, int, char *argv[])
 {
   char* nsid = NULL;
   char* url = argv[1];
@@ -696,7 +696,7 @@ command_urls_getGroup(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_urls_getUserPhotos(flickcurl* fc, int argc, char *argv[])
+command_urls_getUserPhotos(flickcurl* fc, int, char *argv[])
 {
   char* url = NULL;
   char* user = argv[1];
@@ -712,7 +712,7 @@ command_urls_getUserPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_urls_getUserProfile(flickcurl* fc, int argc, char *argv[])
+command_urls_getUserProfile(flickcurl* fc, int, char *argv[])
 {
   char* url = NULL;
   char* user = argv[1];
@@ -728,7 +728,7 @@ command_urls_getUserProfile(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_urls_lookupGroup(flickcurl* fc, int argc, char *argv[])
+command_urls_lookupGroup(flickcurl* fc, int, char *argv[])
 {
   char* nsid = NULL;
   char* url = argv[1];
@@ -744,7 +744,7 @@ command_urls_lookupGroup(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getHotList(flickcurl* fc, int argc, char *argv[])
+command_tags_getHotList(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag** tags;
   char *period = NULL;
@@ -768,7 +768,7 @@ command_tags_getHotList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_addTags(flickcurl* fc, int argc, char *argv[])
+command_photos_addTags(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   const char *tags = argv[2];
@@ -778,7 +778,7 @@ command_photos_addTags(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_delete(flickcurl* fc, int argc, char *argv[])
+command_photos_delete(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
 
@@ -787,7 +787,7 @@ command_photos_delete(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_removeTag(flickcurl* fc, int argc, char *argv[])
+command_photos_removeTag(flickcurl* fc, int, char *argv[])
 {
   const char *tag_id = argv[1];
 
@@ -796,7 +796,7 @@ command_photos_removeTag(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_setTags(flickcurl* fc, int argc, char *argv[])
+command_photos_setTags(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   const char *tags = argv[2];
@@ -806,7 +806,7 @@ command_photos_setTags(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_reflection_getMethodInfo(flickcurl* fc, int argc, char *argv[])
+command_reflection_getMethodInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_method* method;
 
@@ -843,7 +843,7 @@ command_reflection_getMethodInfo(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_reflection_getMethods(flickcurl* fc, int argc, char *argv[])
+command_reflection_getMethods(flickcurl* fc, int, char *[])
 {
   char** methods;
 
@@ -863,7 +863,7 @@ command_reflection_getMethods(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_comments_addComment(flickcurl* fc, int argc, char *argv[])
+command_photos_comments_addComment(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   const char *comment_text = argv[2];
@@ -880,7 +880,7 @@ command_photos_comments_addComment(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_comments_deleteComment(flickcurl* fc, int argc, char *argv[])
+command_photos_comments_deleteComment(flickcurl* fc, int, char *argv[])
 {
   const char *comment_id = argv[1];
 
@@ -889,7 +889,7 @@ command_photos_comments_deleteComment(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_comments_editComment(flickcurl* fc, int argc, char *argv[])
+command_photos_comments_editComment(flickcurl* fc, int, char *argv[])
 {
   const char *comment_id = argv[1];
   const char *comment_text = argv[2];
@@ -918,7 +918,7 @@ command_print_comments(flickcurl_comment** comments, const char* label,
 
 
 static int
-command_photos_comments_getList(flickcurl* fc, int argc, char *argv[])
+command_photos_comments_getList(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   flickcurl_comment** comments;
@@ -935,7 +935,7 @@ command_photos_comments_getList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_comments_addComment(flickcurl* fc, int argc, char *argv[])
+command_photosets_comments_addComment(flickcurl* fc, int, char *argv[])
 {
   const char *photoset_id = argv[1];
   const char *comment_text = argv[2];
@@ -953,7 +953,7 @@ command_photosets_comments_addComment(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photosets_comments_deleteComment(flickcurl* fc, int argc, char *argv[])
+command_photosets_comments_deleteComment(flickcurl* fc, int, char *argv[])
 {
   const char *comment_id = argv[1];
 
@@ -962,7 +962,7 @@ command_photosets_comments_deleteComment(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_comments_editComment(flickcurl* fc, int argc, char *argv[])
+command_photosets_comments_editComment(flickcurl* fc, int, char *argv[])
 {
   const char *comment_id = argv[1];
   const char *comment_text = argv[2];
@@ -972,7 +972,7 @@ command_photosets_comments_editComment(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_comments_getList(flickcurl* fc, int argc, char *argv[])
+command_photosets_comments_getList(flickcurl* fc, int, char *argv[])
 {
   const char *photoset_id = argv[1];
   flickcurl_comment** comments;
@@ -1179,7 +1179,7 @@ command_replace(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_setContentType(flickcurl* fc, int argc, char *argv[])
+command_photos_setContentType(flickcurl* fc, int, char *argv[])
 {
   const char* photo_id = argv[1];
   const char* content_type_str = argv[2];
@@ -1201,7 +1201,7 @@ command_photos_setContentType(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_setDates(flickcurl* fc, int argc, char *argv[])
+command_photos_setDates(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   int date_posted= -1;
@@ -1218,7 +1218,7 @@ command_photos_setDates(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_setMeta(flickcurl* fc, int argc, char *argv[])
+command_photos_setMeta(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   const char* title = argv[2];
@@ -1251,7 +1251,7 @@ parse_bool_param(const char* param)
 
 
 static int
-command_photos_setPerms(flickcurl* fc, int argc, char *argv[])
+command_photos_setPerms(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   int is_public = parse_bool_param(argv[2]);
@@ -1273,7 +1273,7 @@ command_photos_setPerms(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_setSafetyLevel(flickcurl* fc, int argc, char *argv[])
+command_photos_setSafetyLevel(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   const char* safety_level_str = argv[2];
@@ -1314,7 +1314,7 @@ command_print_perms(flickcurl_perms* perms, int show_comment_metadata)
 
 
 static int
-command_photos_getPerms(flickcurl* fc, int argc, char *argv[])
+command_photos_getPerms(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   flickcurl_perms* perms;
@@ -1337,6 +1337,8 @@ command_print_photos_list(flickcurl* fc, flickcurl_photos_list* photos_list,
 {
   int rc = 0;
   int i;
+
+  (void)fc;
 
   if(photos_list->photos) {
     fprintf(stdout,
@@ -1611,7 +1613,7 @@ command_photos_search(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_geo_getLocation(flickcurl* fc, int argc, char *argv[])
+command_photos_geo_getLocation(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   flickcurl_location* location;
@@ -1629,7 +1631,7 @@ command_photos_geo_getLocation(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_geo_getPerms(flickcurl* fc, int argc, char *argv[])
+command_photos_geo_getPerms(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   flickcurl_perms* perms;
@@ -1647,7 +1649,7 @@ command_photos_geo_getPerms(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_geo_removeLocation(flickcurl* fc, int argc, char *argv[])
+command_photos_geo_removeLocation(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
 
@@ -1656,7 +1658,7 @@ command_photos_geo_removeLocation(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_geo_setLocation(flickcurl* fc, int argc, char *argv[])
+command_photos_geo_setLocation(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   double latitude = atof(argv[2]);
@@ -1674,7 +1676,7 @@ command_photos_geo_setLocation(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_geo_setPerms(flickcurl* fc, int argc, char *argv[])
+command_photos_geo_setPerms(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   int is_public = parse_bool_param(argv[2]);
@@ -1694,7 +1696,7 @@ command_photos_geo_setPerms(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_notes_add(flickcurl* fc, int argc, char *argv[])
+command_photos_notes_add(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   int note_x = atoi(argv[2]);
@@ -1718,7 +1720,7 @@ command_photos_notes_add(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_notes_delete(flickcurl* fc, int argc, char *argv[])
+command_photos_notes_delete(flickcurl* fc, int, char *argv[])
 {
   const char *note_id = argv[1];
 
@@ -1726,7 +1728,7 @@ command_photos_notes_delete(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_photos_notes_edit(flickcurl* fc, int argc, char *argv[])
+command_photos_notes_edit(flickcurl* fc, int, char *argv[])
 {
   const char *note_id = argv[1];
   int note_x = atoi(argv[2]);
@@ -1742,7 +1744,7 @@ command_photos_notes_edit(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_licenses_setLicense(flickcurl* fc, int argc, char *argv[])
+command_photos_licenses_setLicense(flickcurl* fc, int, char *argv[])
 {
   const char *photo_id = argv[1];
   int license_id = atoi(argv[2]);
@@ -1788,7 +1790,7 @@ command_people_getPublicPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_groups_pools_add(flickcurl* fc, int argc, char *argv[])
+command_groups_pools_add(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *group_id = argv[2];
@@ -1896,7 +1898,7 @@ command_groups_pools_getPhotos(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_groups_pools_remove(flickcurl* fc, int argc, char *argv[])
+command_groups_pools_remove(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *group_id = argv[2];
@@ -1948,7 +1950,7 @@ command_print_exif(flickcurl_exif* e)
 
 
 static int
-command_photos_getExif(flickcurl* fc, int argc, char *argv[])
+command_photos_getExif(flickcurl* fc, int, char *argv[])
 {
   const char* photo_id = argv[1];
   const char* secret = NULL;
@@ -2028,7 +2030,7 @@ command_photoslist(flickcurl* fc, int argc, char *argv[],
   if(!photos_list)
     return 1;
 
-  rc = command_print_photos_list(fc, photos_list, output_fh, "Photo");
+  rc = command_print_photos_list(fc, photos_list, output_fh, label);
   flickcurl_free_photos_list(photos_list);
 
   return rc;
@@ -2044,7 +2046,7 @@ command_photos_getNotInSet(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_getSizes(flickcurl* fc, int argc, char *argv[])
+command_photos_getSizes(flickcurl* fc, int, char *argv[])
 {
   flickcurl_size** sizes = NULL;
   char* photo_id = argv[1];
@@ -2172,7 +2174,7 @@ void command_print_photoset(flickcurl_photoset* photoset)
 
 
 static int
-command_photosets_getInfo(flickcurl* fc, int argc, char *argv[])
+command_photosets_getInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_photoset* photoset = NULL;
   const char* photoset_id = argv[1];
@@ -2188,7 +2190,7 @@ command_photosets_getInfo(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_getList(flickcurl* fc, int argc, char *argv[])
+command_photosets_getList(flickcurl* fc, int, char *argv[])
 {
   flickcurl_photoset** photoset_list = NULL;
   const char* user_id = argv[1];
@@ -2254,14 +2256,14 @@ command_photosets_getPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_addPhoto(flickcurl* fc, int argc, char *argv[])
+command_photosets_addPhoto(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_photosets_addPhoto(fc, argv[1], argv[2]);
 }
 
 
 static int
-command_photosets_create(flickcurl* fc, int argc, char *argv[])
+command_photosets_create(flickcurl* fc, int, char *argv[])
 {
   const char* title = argv[1];
   const char* description = argv[2];
@@ -2281,21 +2283,21 @@ command_photosets_create(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_delete(flickcurl* fc, int argc, char *argv[])
+command_photosets_delete(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_photosets_delete(fc, argv[1]);
 }
 
 
 static int
-command_photosets_editMeta(flickcurl* fc, int argc, char *argv[])
+command_photosets_editMeta(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_photosets_editMeta(fc, argv[1], argv[2], argv[3]);
 }
 
 
 static int
-command_photosets_editPhotos(flickcurl* fc, int argc, char *argv[])
+command_photosets_editPhotos(flickcurl* fc, int, char *argv[])
 {
   const char* photoset_id = argv[1];
   const char* primary_photo_id = argv[2];
@@ -2310,7 +2312,7 @@ command_photosets_editPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_orderSets(flickcurl* fc, int argc, char *argv[])
+command_photosets_orderSets(flickcurl* fc, int, char *argv[])
 {
   char** photoset_ids = flickcurl_array_split(argv[1], ',');
   int rc;
@@ -2322,14 +2324,14 @@ command_photosets_orderSets(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_removePhoto(flickcurl* fc, int argc, char *argv[])
+command_photosets_removePhoto(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_photosets_removePhoto(fc, argv[1], argv[2]);
 }
 
 
 static int
-command_photos_upload_checkTickets(flickcurl* fc, int argc, char *argv[])
+command_photos_upload_checkTickets(flickcurl* fc, int, char *argv[])
 {
   flickcurl_ticket** tickets = NULL;
   char** tickets_ids = flickcurl_array_split(argv[1], ',');
@@ -2378,7 +2380,7 @@ command_print_category(flickcurl_category* c)
 
 
 static int
-command_groups_browse(flickcurl* fc, int argc, char *argv[])
+command_groups_browse(flickcurl* fc, int, char *argv[])
 {
   int cat_id= -1;
   flickcurl_category* category = NULL;
@@ -2396,7 +2398,7 @@ command_groups_browse(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_groups_getInfo(flickcurl* fc, int argc, char *argv[])
+command_groups_getInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_group* group = NULL;
   const char* group_id = argv[1];
@@ -2444,7 +2446,7 @@ command_groups_search(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_people_getPublicGroups(flickcurl* fc, int argc, char *argv[])
+command_people_getPublicGroups(flickcurl* fc, int, char *argv[])
 {
   char* user_id = argv[1];
   flickcurl_group** groups = NULL;
@@ -2466,7 +2468,7 @@ command_people_getPublicGroups(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_people_getUploadStatus(flickcurl* fc, int argc, char *argv[])
+command_people_getUploadStatus(flickcurl* fc, int, char *[])
 {
   flickcurl_user_upload_status* u;
 
@@ -2490,7 +2492,7 @@ command_people_getUploadStatus(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_transform_rotate(flickcurl* fc, int argc, char *argv[])
+command_photos_transform_rotate(flickcurl* fc, int, char *argv[])
 {
   const char* photo_id = argv[1];
   int degrees = atoi(argv[2]);
@@ -2560,7 +2562,7 @@ command_interestingness_getList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_resolvePlaceId(flickcurl* fc, int argc, char *argv[])
+command_places_resolvePlaceId(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place* place = NULL;
   char* place_id = argv[1];
@@ -2575,7 +2577,7 @@ command_places_resolvePlaceId(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_places_resolvePlaceURL(flickcurl* fc, int argc, char *argv[])
+command_places_resolvePlaceURL(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place* place = NULL;
   char* place_url = argv[1];
@@ -2591,7 +2593,7 @@ command_places_resolvePlaceURL(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_favorites_add(flickcurl* fc, int argc, char *argv[])
+command_favorites_add(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
 
@@ -2688,7 +2690,7 @@ command_favorites_getPublicList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_favorites_remove(flickcurl* fc, int argc, char *argv[])
+command_favorites_remove(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
 
@@ -2697,7 +2699,7 @@ command_favorites_remove(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_blogs_getList(flickcurl* fc, int argc, char *argv[])
+command_blogs_getList(flickcurl* fc, int, char *[])
 {
   flickcurl_blog** blogs = NULL;
 
@@ -2720,7 +2722,7 @@ command_blogs_getList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_blogs_postPhoto(flickcurl* fc, int argc, char *argv[])
+command_blogs_postPhoto(flickcurl* fc, int, char *argv[])
 {
   const char* blog_id = argv[1];
   const char* photo_id = argv[2];
@@ -2835,7 +2837,7 @@ command_activity_userPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_find(flickcurl* fc, int argc, char *argv[])
+command_places_find(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place** places = NULL;
   char* query = argv[1];
@@ -2855,7 +2857,7 @@ command_places_find(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_findByLatLon(flickcurl* fc, int argc, char *argv[])
+command_places_findByLatLon(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place* place = NULL;
   double lat = atof(argv[1]);
@@ -2873,7 +2875,7 @@ command_places_findByLatLon(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_prefs_getContentType(flickcurl* fc, int argc, char *argv[])
+command_prefs_getContentType(flickcurl* fc, int, char *[])
 {
   int content_type;
 
@@ -2888,7 +2890,7 @@ command_prefs_getContentType(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_prefs_getHidden(flickcurl* fc, int argc, char *argv[])
+command_prefs_getHidden(flickcurl* fc, int, char *[])
 {
   int hidden;
 
@@ -2902,7 +2904,7 @@ command_prefs_getHidden(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_prefs_getPrivacy(flickcurl* fc, int argc, char *argv[])
+command_prefs_getPrivacy(flickcurl* fc, int, char *[])
 {
   int privacy;
 
@@ -2916,7 +2918,7 @@ command_prefs_getPrivacy(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_prefs_getSafetyLevel(flickcurl* fc, int argc, char *argv[])
+command_prefs_getSafetyLevel(flickcurl* fc, int, char *[])
 {
   int safety_level;
 
@@ -2931,7 +2933,7 @@ command_prefs_getSafetyLevel(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_prefs_getGeoPerms(flickcurl* fc, int argc, char *argv[])
+command_prefs_getGeoPerms(flickcurl* fc, int, char *[])
 {
   int geo_perms;
 
@@ -2945,7 +2947,7 @@ command_prefs_getGeoPerms(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_tags_getClusters(flickcurl* fc, int argc, char *argv[])
+command_tags_getClusters(flickcurl* fc, int, char *argv[])
 {
   flickcurl_tag_clusters* clusters;
   flickcurl_tag_cluster* cluster;
@@ -3039,7 +3041,7 @@ command_places_getInfo(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_getInfoByUrl(flickcurl* fc, int argc, char *argv[])
+command_places_getInfoByUrl(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place* place = NULL;
   const char* url = argv[1];
@@ -3243,7 +3245,7 @@ command_machinetags_getValues(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_getPlaceTypes(flickcurl* fc, int argc, char *argv[])
+command_places_getPlaceTypes(flickcurl* fc, int, char *[])
 {
   flickcurl_place_type_info** place_types;
 
@@ -3264,7 +3266,7 @@ command_places_getPlaceTypes(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_places_placesForBoundingBox(flickcurl* fc, int argc, char *argv[])
+command_places_placesForBoundingBox(flickcurl* fc, int, char *argv[])
 {
   flickcurl_place** places = NULL;
   double minimum_longitude;
@@ -3592,7 +3594,7 @@ command_print_institution(flickcurl_institution* institution, int ix)
 
 
 static int
-command_commons_getInstitutions(flickcurl* fc, int argc, char *argv[])
+command_commons_getInstitutions(flickcurl* fc, int, char *[])
 {
   flickcurl_institution** institutions = NULL;
 
@@ -3654,7 +3656,7 @@ command_groups_members_getList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_panda_getList(flickcurl* fc, int argc, char *argv[])
+command_panda_getList(flickcurl* fc, int, char *[])
 {
   int i;
   char **pandas;
@@ -3671,7 +3673,7 @@ command_panda_getList(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_panda_getPhotos(flickcurl* fc, int argc, char *argv[])
+command_panda_getPhotos(flickcurl* fc, int, char *argv[])
 {
   char *panda = argv[1];
   flickcurl_photo **photos = NULL;
@@ -3727,7 +3729,7 @@ command_print_collection(flickcurl_collection *collection)
 
 
 static int
-command_collections_getInfo(flickcurl* fc, int argc, char *argv[])
+command_collections_getInfo(flickcurl* fc, int, char *argv[])
 {
   char *collection_id = argv[1];
   flickcurl_collection *collection = NULL;
@@ -3863,10 +3865,12 @@ command_comments_getRecentForContacts(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_short_uri(flickcurl* fc, int argc, char *argv[])
+command_short_uri(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *uri;
+
+  (void)fc;
 
   uri = flickcurl_photo_id_as_short_uri(photo_id);
   if(uri) {
@@ -3884,7 +3888,7 @@ command_short_uri(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_blogs_getServices(flickcurl* fc, int argc, char *argv[])
+command_blogs_getServices(flickcurl* fc, int, char *[])
 {
   flickcurl_blog_service** blog_services;
 
@@ -3938,10 +3942,12 @@ command_places_getTopPlacesList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_source_uri_to_photoid(flickcurl* fc, int argc, char *argv[])
+command_source_uri_to_photoid(flickcurl* fc, int, char *argv[])
 {
   char *uri = argv[1];
   char *photo_id;
+
+  (void)fc;
 
   photo_id = flickcurl_source_uri_as_photo_id(uri);
   if(!photo_id) {
@@ -3995,7 +4001,7 @@ command_people_getPhotosOf(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_people_add(flickcurl* fc, int argc, char *argv[])
+command_photos_people_add(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *user_id = argv[2];
@@ -4010,7 +4016,7 @@ command_photos_people_add(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_people_delete(flickcurl* fc, int argc, char *argv[])
+command_photos_people_delete(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *user_id = argv[2];
@@ -4020,7 +4026,7 @@ command_photos_people_delete(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_people_deleteCoords(flickcurl* fc, int argc, char *argv[])
+command_photos_people_deleteCoords(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *user_id = argv[2];
@@ -4030,7 +4036,7 @@ command_photos_people_deleteCoords(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_people_editCoords(flickcurl* fc, int argc, char *argv[])
+command_photos_people_editCoords(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   char *user_id = argv[2];
@@ -4046,7 +4052,7 @@ command_photos_people_editCoords(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photos_people_getList(flickcurl* fc, int argc, char *argv[])
+command_photos_people_getList(flickcurl* fc, int, char *argv[])
 {
   char *photo_id = argv[1];
   int i;
@@ -4066,7 +4072,7 @@ command_photos_people_getList(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_galleries_addPhoto(flickcurl* fc, int argc, char *argv[])
+command_galleries_addPhoto(flickcurl* fc, int, char *argv[])
 {
   const char* gallery_id = argv[1];
   const char* photo_id = argv[2];
@@ -4252,7 +4258,7 @@ command_stats_getCollectionReferrers(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_stats_getCollectionStats(flickcurl* fc, int argc, char *argv[])
+command_stats_getCollectionStats(flickcurl* fc, int, char *argv[])
 {
   char* date = argv[1];
   const char* collection_id = argv[2];
@@ -4339,7 +4345,7 @@ command_stats_getPhotoReferrers(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_stats_getPhotoStats(flickcurl* fc, int argc, char *argv[])
+command_stats_getPhotoStats(flickcurl* fc, int, char *argv[])
 {
   char* date = argv[1];
   const char* photo_id = argv[2];
@@ -4430,7 +4436,7 @@ command_stats_getPhotosetReferrers(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_stats_getPhotosetStats(flickcurl* fc, int argc, char *argv[])
+command_stats_getPhotosetStats(flickcurl* fc, int, char *argv[])
 {
   char* date = argv[1];
   const char* photoset_id = argv[2];
@@ -4509,7 +4515,7 @@ command_stats_getPhotostreamReferrers(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_stats_getPhotostreamStats(flickcurl* fc, int argc, char *argv[])
+command_stats_getPhotostreamStats(flickcurl* fc, int, char *argv[])
 {
   char* date = argv[1];
   int views;
@@ -4707,14 +4713,14 @@ command_galleries_create(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_galleries_editMeta(flickcurl* fc, int argc, char *argv[])
+command_galleries_editMeta(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_galleries_editMeta(fc, argv[1], argv[2], argv[3]);
 }
 
 
 static int
-command_galleries_editPhoto(flickcurl* fc, int argc, char *argv[])
+command_galleries_editPhoto(flickcurl* fc, int, char *argv[])
 {
   const char* gallery_id = argv[1];
   const char* primary_photo_id = argv[2];
@@ -4726,7 +4732,7 @@ command_galleries_editPhoto(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_galleries_editPhotos(flickcurl* fc, int argc, char *argv[])
+command_galleries_editPhotos(flickcurl* fc, int, char *argv[])
 {
   const char* photoset_id = argv[1];
   const char* primary_photo_id = argv[2];
@@ -4741,7 +4747,7 @@ command_galleries_editPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_galleries_getInfo(flickcurl* fc, int argc, char *argv[])
+command_galleries_getInfo(flickcurl* fc, int, char *argv[])
 {
   flickcurl_gallery* gallery = NULL;
   const char* gallery_id = argv[1];
@@ -4798,7 +4804,7 @@ command_galleries_getPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_removePhotos(flickcurl* fc, int argc, char *argv[])
+command_photosets_removePhotos(flickcurl* fc, int, char *argv[])
 {
   char** photoset_ids = flickcurl_array_split(argv[2], ',');
   int rc;
@@ -4811,7 +4817,7 @@ command_photosets_removePhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_reorderPhotos(flickcurl* fc, int argc, char *argv[])
+command_photosets_reorderPhotos(flickcurl* fc, int, char *argv[])
 {
   char** photoset_ids = flickcurl_array_split(argv[2], ',');
   int rc;
@@ -4824,7 +4830,7 @@ command_photosets_reorderPhotos(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_photosets_setPrimaryPhoto(flickcurl* fc, int argc, char *argv[])
+command_photosets_setPrimaryPhoto(flickcurl* fc, int, char *argv[])
 {
   return flickcurl_photosets_setPrimaryPhoto(fc, argv[1], argv[2]);
 }
@@ -4922,7 +4928,7 @@ command_oauth_create(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_oauth_verify(flickcurl* fc, int argc, char *argv[])
+command_oauth_verify(flickcurl* fc, int, char *argv[])
 {
   int rc;
 
@@ -4957,7 +4963,7 @@ command_oauth_verify(flickcurl* fc, int argc, char *argv[])
 
 
 static int
-command_oauth_upgrade(flickcurl* fc, int argc, char *argv[])
+command_oauth_upgrade(flickcurl* fc, int, char *[])
 {
   int rc;
 
@@ -4984,7 +4990,7 @@ command_oauth_upgrade(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_groups_join(flickcurl* fc, int argc, char *argv[])
+command_groups_join(flickcurl* fc, int, char *argv[])
 {
   char* group_id = argv[1];
   char* accept_rules = NULL;
@@ -4996,7 +5002,7 @@ command_groups_join(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_groups_joinRequest(flickcurl* fc, int argc, char *argv[])
+command_groups_joinRequest(flickcurl* fc, int, char *argv[])
 {
   char* group_id = argv[1];
   char* message = argv[2];
@@ -5006,7 +5012,7 @@ command_groups_joinRequest(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_groups_leave(flickcurl* fc, int argc, char *argv[])
+command_groups_leave(flickcurl* fc, int, char *argv[])
 {
   char* group_id = argv[1];
   char* delete_photos = NULL;
@@ -5052,7 +5058,7 @@ command_contacts_getTaggingSuggestions(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_people_getGroups(flickcurl* fc, int argc, char *argv[])
+command_people_getGroups(flickcurl* fc, int, char *argv[])
 {
   char* user_id = argv[1];
   flickcurl_group** groups = NULL;
@@ -5074,7 +5080,7 @@ command_people_getGroups(flickcurl* fc, int argc, char *argv[])
 }
 
 static int
-command_tags_getMostFrequentlyUsed(flickcurl* fc, int argc, char *argv[])
+command_tags_getMostFrequentlyUsed(flickcurl* fc, int, char *[])
 {
   flickcurl_tag** tags;
 

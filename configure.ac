@@ -420,7 +420,7 @@ possible_warnings="-Wall -Wextra \
 -Wpacked -Wpointer-arith -Wcast-align -Winit-self \
 -Wunsafe-loop-optimizations -Wdeclaration-after-statement \
 -Wold-style-definition \
--Wno-missing-field-initializers -Wno-unused-parameter"
+-Wmissing-field-initializers"
 
 warning_cflags=
 if test "$USE_MAINTAINER_MODE" = yes; then
