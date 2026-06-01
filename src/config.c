@@ -36,6 +36,12 @@
 #ifdef HAVE_ERRNO_H
 #include <errno.h>
 #endif
+#ifdef HAVE_FCNTL_H
+#include <fcntl.h>
+#endif
+#ifdef HAVE_SYS_STAT_H
+#include <sys/stat.h>
+#endif
 
 
 #include <flickcurl.h>
@@ -43,6 +49,26 @@
 
 
 #undef CONFIG_DEBUG
+
+static FILE*
+flickcurl_config_open_write(const char* filename)
+{
+#ifdef HAVE_UNISTD_H
+  int fd;
+
+  fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC,
+            S_IRUSR | S_IWUSR);
+  if(fd < 0)
+    return NULL;
+  if(fchmod(fd, S_IRUSR | S_IWUSR) < 0) {
+    close(fd);
+    return NULL;
+  }
+  return fdopen(fd, "w");
+#else
+  return fopen(filename, "w");
+#endif
+}
 
 /**
  * flickcurl_config_read_ini:
@@ -271,7 +297,7 @@ flickcurl_config_write_ini(flickcurl *fc,
   if(!fc || !filename || !section)
     return 1;
   
-  fh = fopen(filename, "w");
+  fh = flickcurl_config_open_write(filename);
   if(!fh) {
     flickcurl_error(fc, "Failed to write to configuration file %s - %s",
                     filename, strerror(errno));
@@ -306,12 +332,12 @@ flickcurl_config_write_ini(flickcurl *fc,
     /* Legacy Flickr auth */
     s = flickcurl_get_auth_token(fc);
     if(s) {
-      fputs("\noauth_token=", fh);
+      fputs("\nauth_token=", fh);
       fputs(s, fh);
     }
     s = flickcurl_get_shared_secret(fc);
     if(s) {
-      fputs("\noauth_secret=", fh);
+      fputs("\nsecret=", fh);
       fputs(s, fh);
     }
     s = flickcurl_get_api_key(fc);
