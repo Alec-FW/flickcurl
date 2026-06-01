@@ -1257,16 +1257,16 @@ flickcurl_places_tagsForPlace(flickcurl* fc, int woe_id, const char* place_id,
     sprintf(min_upload_date_str, "%d", min_upload_date);
     flickcurl_add_param(fc, "min_upload_date", min_upload_date_str);
   }
-  if(min_upload_date) {
-    sprintf(min_upload_date_str, "%d", min_upload_date);    
+  if(max_upload_date) {
+    sprintf(max_upload_date_str, "%d", max_upload_date);
     flickcurl_add_param(fc, "max_upload_date", max_upload_date_str);
   }
-  if(max_upload_date) {
-    sprintf(max_upload_date_str, "%d", max_upload_date);    
+  if(min_taken_date) {
+    sprintf(min_taken_date_str, "%d", min_taken_date);
     flickcurl_add_param(fc, "min_taken_date", min_taken_date_str);
   }
-  if(min_taken_date) {
-    sprintf(min_taken_date_str, "%d", min_taken_date);    
+  if(max_taken_date) {
+    sprintf(max_taken_date_str, "%d", max_taken_date);
     flickcurl_add_param(fc, "max_taken_date", max_taken_date_str);
   }
 
