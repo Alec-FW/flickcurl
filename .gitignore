@@ -1,4 +1,13 @@
+*.conf.local
+*.dSYM/
 *~
+
+/bugs/
+/conftest*
+/not-used/
+/old/
+/releases/
+
 INSTALL
 Makefile
 Makefile.in
@@ -20,8 +29,5 @@ flickcurl.rdf
 flickcurl.spec
 gtk-doc.make
 libtool
-not-used/
-old/
-releases
 setup*.sh
 stylesheet.css
