@@ -112,7 +112,7 @@ static struct {
   const xmlChar* xpath;
   flickcurl_person_field_type field;
   flickcurl_field_value_type type;
-} person_fields_table[PHOTO_FIELD_LAST + 4] = {
+} person_fields_table[PERSON_FIELD_LAST + 4] = {
   {
     (const xmlChar*)"./@nsid",
     PERSON_FIELD_none,
@@ -210,12 +210,6 @@ static struct {
   }
   ,
   {
-    (const xmlChar*)"./@username",
-    PERSON_FIELD_username,
-    VALUE_TYPE_STRING
-  }
-  ,
-  {
     (const xmlChar*)"./@favedate",
     PERSON_FIELD_favedate,
     VALUE_TYPE_DATETIME
@@ -281,7 +275,7 @@ flickcurl_build_persons(flickcurl* fc, xmlXPathContextPtr xpathCtx,
       if(person->fields[expri].string)
         free(person->fields[expri].string);
       person->fields[expri].string = NULL;
-      person->fields[expri].integer= (flickcurl_person_field_type)-1;
+      person->fields[expri].integer= -1;
       person->fields[expri].type   = VALUE_TYPE_NONE;
     }
 
@@ -316,7 +310,7 @@ flickcurl_build_persons(flickcurl* fc, xmlXPathContextPtr xpathCtx,
             char* new_value = flickcurl_unixtime_to_isotime(unix_time);
 #if FLICKCURL_DEBUG > 1
             fprintf(stderr, "  date from: '%s' unix time %ld to '%s'\n",
-                    value, (long)unix_time, new_value);
+                    string_value, (long)unix_time, new_value);
 #endif
             free(string_value);
             string_value= new_value;
