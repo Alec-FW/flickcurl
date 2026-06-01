@@ -117,13 +117,22 @@ ANALYZE_COMMAND = $(ANALYZE) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) \
 	$(ANALYZE_FLAGS)
 
-TESTS=flickcurl_oauth_test
+TESTS=flickcurl_oauth_test config_test person_test oauth_sign_test
 
 CLEANFILES=$(TESTS) \
 *.plist
 
 flickcurl_oauth_test: $(srcdir)/oauth.c libflickcurl.la
 	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. -DSTANDALONE $(srcdir)/oauth.c libflickcurl.la $(LIBS)
+
+config_test: $(srcdir)/config_test.c libflickcurl.la
+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. $(AM_CFLAGS) $(CFLAGS) $(srcdir)/config_test.c libflickcurl.la $(LIBS)
+
+person_test: $(srcdir)/person_test.c libflickcurl.la
+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. $(AM_CFLAGS) $(CFLAGS) $(srcdir)/person_test.c libflickcurl.la $(LIBS)
+
+oauth_sign_test: $(srcdir)/oauth_sign_test.c libflickcurl.la
+	$(LINK) $(DEFS) $(CPPFLAGS) -I$(srcdir) -I. $(AM_CFLAGS) $(CFLAGS) $(srcdir)/oauth_sign_test.c libflickcurl.la $(LIBS)
 
 if MAINTAINER_MODE
 

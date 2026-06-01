@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rsp stat="ok">
+  <person nsid="987654321@N00" isadmin="0" ispro="1" iconserver="1" iconfarm="1" username="attr-only">
+    <username>fixtureuser</username>
+    <realname>Example User</realname>
+  </person>
+</rsp>
