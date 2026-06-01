@@ -1,5 +1,6 @@
 *.conf.local
 *.dSYM/
+tests/api-smoke.sh
 *~
 
 /bugs/

@@ -137,7 +137,7 @@ as `flickcurl_oauth_test`).
 | `config_test` (new)                           | Legacy + OAuth config read/write round-trip; key names                       |
 | `config_test`                                 | New credential file mode `0600` on POSIX                                     |
 | `person_test` (new)                           | Minimal/captured XML fixtures; username element vs attribute; field integers |
-| `tests/api-smoke.sh` (optional, local)        | Live Flickr smoke tests; never run in CI with secrets                        |
+| Local `tests/api-smoke.sh` (optional, gitignored) | Live Flickr smoke tests; never run in CI; use your own IDs locally |
 
 Fixtures: commit anonymized XML under `tests/fixtures/` (no secrets). May adapt
 XML from `bugs/bug2014-11-17a.c` / `bugs/bug2014-11-19a.c` scenarios without
