@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            install: |
+              sudo apt-get update
+              sudo apt-get install -y autoconf automake libtool pkg-config \
+                libcurl4-openssl-dev libxml2-dev libraptor2-dev
+          - os: macos-latest
+            install: |
+              brew install autoconf automake libtool pkg-config libxml2 raptor curl
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: ${{ matrix.install }}
+
+      - name: Build and test
+        run: |
+          ./autogen.sh --disable-gtk-doc
+          ./configure --disable-gtk-doc
+          make -j"$(nproc 2>/dev/null || sysctl -n hw.ncpu)"
+          make check
+
+  maintainer-warnings:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: brew install autoconf automake libtool pkg-config libxml2 raptor curl
+
+      - name: Build with maintainer warnings
+        run: |
+          ./autogen.sh --enable-maintainer-mode --disable-gtk-doc
+          ./configure --enable-maintainer-mode --disable-gtk-doc
+          set -o pipefail
+          make -j"$(sysctl -n hw.ncpu)" 2>&1 | tee build.log
+          if grep -E ': warning:' build.log; then
+            echo "Maintainer build produced warnings" >&2
+            exit 1
+          fi
+          make check
