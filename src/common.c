@@ -912,42 +912,9 @@ flickcurl_prepare_upload(flickcurl *fc,
  */
 
 #ifdef HAVE_GETTIMEOFDAY
-#ifdef WIN32
-/* have it as an external function */
-int gettimeofday(struct timeval* tp, void *tzp);
-#endif
 
 #else
-
-/* seconds between 1 Jan 1601 (windows epoch) and 1 Jan 1970 (unix epoch) */
-#define EPOCH_WIN_UNIX_DELTA 11644473600.0
-
-/* 100 nano-seconds ( = 1/10 usec) in seconds */
-#define NSEC100 (1e-7)
-
-/* factor to convert high-dword count into seconds = NSEC100 * (2<<32) */
-#define FOUR_GIGA_NSEC100 (4294967296e-7)
-
-static int
-gettimeofday(struct timeval* tp, void* tzp)
-{
-  FILETIME ft;
-  double t;
-  
-  /* returns time since windows epoch in 100ns (1/10us) units */
-  GetSystemTimeAsFileTime(&ft);
-
-  /* convert time into seconds as a double */
-  t = ((ft.dwHighDateTime * FOUR_GIGA_NSEC100) - EPOCH_WIN_UNIX_DELTA) +
-      (ft.dwLowDateTime  * NSEC100);
-
-  tp->tv_sec  = (long) t;
-  tp->tv_usec = (long) ((t - tp->tv_sec) * 1e6);
-
-  /* tzp is ignored */
-
-  return 0;
-}
+/* WIN32 version is now in win32_extras.c */
 #endif
 /* end HAVE_GETTIMEOFDAY */
 
@@ -958,11 +925,14 @@ gettimeofday(struct timeval* tp, void* tzp)
 #else
 
 #ifdef WIN32
+/* VS2015 provides struct timespec in <time.h> */
+#if _MSC_VER < 1900
 struct timespec
 {
   long int tv_sec;              /* seconds */
   long int tv_nsec;             /* nanoseconds */
 };
+#endif
 #endif
 
 static int
