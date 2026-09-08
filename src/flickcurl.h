@@ -1945,6 +1945,7 @@ flickcurl_collection* flickcurl_collections_getTree(flickcurl* fc, const char* c
 /* flickr.commons */
 FLICKCURL_API
 flickcurl_institution** flickcurl_commons_getInstitutions(flickcurl* fc);
+FLICKCURL_API
 const char* flickcurl_get_institution_url_type_label(flickcurl_institution_url_type url_type);
 
 /* flickr.favorites */
@@ -2202,6 +2203,7 @@ FLICKCURL_API
 flickcurl_place* flickcurl_places_resolvePlaceURL(flickcurl* fc, const char* url);
 FLICKCURL_API
 const char* flickcurl_get_place_type_label(flickcurl_place_type place_type);
+FLICKCURL_API
 flickcurl_place_type flickcurl_get_place_type_by_label(const char* place_label);
 FLICKCURL_API
 flickcurl_place_type_info** flickcurl_places_getPlaceTypes(flickcurl* fc);
@@ -2291,7 +2293,6 @@ FLICKCURL_API
 int flickcurl_photos_notes_delete(flickcurl* fc, const char* note_id);
 FLICKCURL_API
 int flickcurl_photos_notes_edit(flickcurl* fc, const char* note_id, int note_x, int note_y, int note_w, int note_h, const char* note_text);
-FLICKCURL_API
 
 /* flickr.photos.upload */
 FLICKCURL_API
