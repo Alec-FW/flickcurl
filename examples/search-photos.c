@@ -26,7 +26,12 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#ifdef WIN32
+#include "win32_flickcurl_config.h"
+#else
 #include <unistd.h>
+#endif
 #include <errno.h>
 
 #include <flickcurl.h>
