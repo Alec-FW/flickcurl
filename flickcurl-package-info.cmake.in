@@ -1,0 +1,13 @@
+# ---------------------------------------------------------------------------
+# flickcurl package metadata (generated at install time).
+# Consumed by build systems that select/verify a matching flickcurl build
+# (e.g. a collection directory with multiple flickcurl builds).
+# Do not edit.
+# ---------------------------------------------------------------------------
+set(flickcurl_VERSION "@FLICKCURL_VERSION@")
+set(flickcurl_ARCH "@FLICKCURL_ARCH@")
+set(flickcurl_SHARED "@FLICKCURL_SHARED@")
+set(flickcurl_STATIC_CRT "@FLICKCURL_STATIC_CRT@")
+set(flickcurl_CURL_TARGET "@FLICKCURL_CURL_TARGET@")
+set(flickcurl_LIBXML2_TYPE "@FLICKCURL_LIBXML2_TYPE@")
+set(flickcurl_DEPENDS_ZLIB "@FLICKCURL_DEPENDS_ZLIB@")

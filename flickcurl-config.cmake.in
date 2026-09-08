@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------
+# CMake package configuration file for flickcurl (CMake build).
+#
+# Provides: flickcurl::libflickcurl
+#
+# This file also verifies that the consuming project's build parameters
+# (architecture, CRT linkage, libcurl/libxml2 static-vs-shared) are
+# compatible with the build of flickcurl that was installed here, and
+# fails with a diagnostic if they are not.
+# ---------------------------------------------------------------------------
+set(flickcurl_VERSION @FLICKCURL_VERSION@)
+
+include("${CMAKE_CURRENT_LIST_DIR}/flickcurl-package-info.cmake")
+
+include(CMakeFindDependencyMacro)
+find_dependency(CURL)
+find_dependency(LibXml2)
+if(flickcurl_DEPENDS_ZLIB AND NOT TARGET ZLIB::ZLIB)
+    # Baked into the exported link interface, so the target must exist.
+    find_dependency(ZLIB)
+endif()
+
+# ---- consistency checks ----------------------------------------------------
+# 1. Architecture
+if(DEFINED CMAKE_C_SIZEOF_DATA_PTR)
+    if(CMAKE_C_SIZEOF_DATA_PTR EQUAL 8)
+        set(_fc_env_arch x64)
+    else()
+        set(_fc_env_arch x86)
+    endif()
+    if(NOT _fc_env_arch STREQUAL "${flickcurl_ARCH}")
+        message(FATAL_ERROR
+            "flickcurl architecture mismatch: this installation was built for "
+            "${flickcurl_ARCH}, but the current project targets ${_fc_env_arch}. "
+            "Provide a flickcurl build matching the project architecture.")
+    endif()
+endif()
+
+# 2. CRT linkage (MSVC only)
+# Documented CMAKE_MSVC_RUNTIME_LIBRARY values: MultiThreaded / MultiThreadedDLL
+# / MultiThreadedDebug / MultiThreadedDebugDLL (case-insensitive), optionally
+# with a configuration genex suffix. Static CRT = value without "DLL".
+if(MSVC)
+    if(CMAKE_MSVC_RUNTIME_LIBRARY)
+        string(TOUPPER "${CMAKE_MSVC_RUNTIME_LIBRARY}" _fc_crt)
+        if(_fc_crt MATCHES "DLL")
+            set(_fc_env_static_crt OFF)
+        else()
+            set(_fc_env_static_crt ON)
+        endif()
+    else()
+        # unset: MSVC default is dynamic CRT (/MD)
+        set(_fc_env_static_crt OFF)
+    endif()
+    if(NOT _fc_env_static_crt STREQUAL "${flickcurl_STATIC_CRT}")
+        message(FATAL_ERROR
+            "flickcurl CRT mismatch: this installation was built with "
+            "@FLICKCURL_CRT_TEXT@, "
+            "but the current project uses ${_fc_env_static_crt}. "
+            "Set CMAKE_MSVC_RUNTIME_LIBRARY consistently, or use a flickcurl "
+            "build with the matching CRT.")
+    endif()
+endif()
+
+# 3. libcurl static/shared flavor (recorded by the target name baked into the
+#    export: vcpkg static triplets expose CURL::libcurl_static)
+if(flickcurl_CURL_TARGET STREQUAL "CURL::libcurl_static")
+    if(NOT TARGET CURL::libcurl_static)
+        message(FATAL_ERROR
+            "libcurl flavor mismatch: this flickcurl was built against a "
+            "STATIC libcurl, but the current environment provides a shared "
+            "libcurl only (no CURL::libcurl_static target). "
+            "Use a vcpkg static triplet (e.g. x86-windows-static-md) or a "
+            "flickcurl build matching the environment.")
+    endif()
+else()
+    if(TARGET CURL::libcurl_static)
+        message(FATAL_ERROR
+            "libcurl flavor mismatch: this flickcurl was built against a "
+            "SHARED libcurl, but the current environment provides a static "
+            "libcurl (CURL::libcurl_static). "
+            "Use a non-static vcpkg triplet (e.g. x86-windows) or a "
+            "flickcurl build matching the environment.")
+    endif()
+endif()
+
+# 4. libxml2 static/shared flavor (best effort: only when the type is recorded)
+if(flickcurl_LIBXML2_TYPE AND TARGET LibXml2::LibXml2)
+    get_target_property(_fc_env_xml2_type LibXml2::LibXml2 TYPE)
+    if(_fc_env_xml2_type AND NOT _fc_env_xml2_type STREQUAL "${flickcurl_LIBXML2_TYPE}")
+        message(FATAL_ERROR
+            "libxml2 flavor mismatch: this flickcurl was built against a "
+            "${flickcurl_LIBXML2_TYPE} libxml2, but the current environment "
+            "provides ${_fc_env_xml2_type}. "
+            "Use a vcpkg triplet or flickcurl build matching the environment.")
+    endif()
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/libflickcurl-targets.cmake")
+set(flickcurl_FOUND TRUE)
