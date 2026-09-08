@@ -74,7 +74,7 @@ flickcurl_oauth_random_bytes(unsigned char* buf, size_t len)
 #if defined(HAVE_ARC4RANDOM_BUF) || defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__)
   arc4random_buf(buf, len);
   return 0;
-#elif defined(HAVE_GETENTROPY)
+#elif defined(HAVE_GETENTROPY) || defined(WIN32)
   if(getentropy(buf, len) == 0)
     return 0;
   return 1;
